@@ -55,7 +55,8 @@ export default {
     methods: {
         post: function(){
             //this(refer to this component).$http(vue resource).post('databese name', {data:data})(http method name and where we want to store, our data what we want to store)
-            this.$http.post('https://jsonplaceholder.typicode.com/posts', {
+            // This one is with face database
+            /*this.$http.post('https://jsonplaceholder.typicode.com/posts', {
                 title: this.blog.title,
                 content: this.blog.content,
                 userId: 1,
@@ -63,27 +64,37 @@ export default {
                 this.submitted = true;
                 console.log(data);
             });
+            */
+            // This one is with firebase realtime database
+            this.$http.post('https://blog-22854.firebaseio.com/posts.json', this.blog).then(function(data){
+                // console.log(data);
+                this.submitted = true;
+            });
         },
     }
 }
 </script>
 
-<style>
+<style scoped>
 #add-blog *{
     box-sizing: border-box;
 }
 #add-blog{
     margin: 20px auto;
-    max-width: 500px;
+    max-width: 600px;
+    padding: 20px;
 }
 label{
     display: block;
     margin: 20px 0 10px;
 }
-input[type="text"], textarea{
+input[type="text"], textarea, select{
     display: block;
     width: 100%;
     padding: 8px;
+}
+textarea{
+    height:200px;
 }
 #preview{
     padding: 10px 20px;
@@ -100,5 +111,19 @@ h3{
 #checkboxes label{
     display: inline-block;
     margin-top: 0;
+}
+hr{
+    display: none;
+}
+button{
+    display: block;
+    margin: 20px 0;
+    background: crimson;
+    color: #fff;
+    border: 0;
+    padding: 14px;
+    border-radius: 4px;
+    font-size: 18px;
+    cursor: pointer;
 }
 </style>
